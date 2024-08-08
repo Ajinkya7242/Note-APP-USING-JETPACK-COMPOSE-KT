@@ -27,6 +27,9 @@ import com.example.notebookjetpackcompose.Screen.NoteViewModel
 import com.example.notebookjetpackcompose.data.NoteDataSource
 import com.example.notebookjetpackcompose.model.Note
 import com.example.notebookjetpackcompose.ui.theme.NoteBookJetpackComposeTheme
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import dagger.hilt.android.AndroidEntryPoint
 
 @RequiresApi(value = 26)
@@ -34,6 +37,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCenter.start(
+            application, "0e6c5754-cbab-4137-8ca9-433b3ec419fe",
+            Analytics::class.java, Crashes::class.java
+        )
+
+        Analytics.trackEvent("note_app_new")
+
         enableEdgeToEdge()
         setContent {
 
